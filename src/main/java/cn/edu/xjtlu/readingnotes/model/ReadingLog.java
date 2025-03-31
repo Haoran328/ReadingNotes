@@ -1,4 +1,4 @@
-package cn.edu.xjtlu.readingnotes.readinglog;
+package cn.edu.xjtlu.readingnotes.model;
 
 import java.time.LocalDate;
 
@@ -6,33 +6,37 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 @Entity
+@Table(name = "reading_logs")
 public class ReadingLog {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private int id;
     private String title;
     private String author;
     private LocalDate date;
     private int spentTime;
     private String note;
-    private Long userID;
+    private int userId;
 
-    protected ReadingLog(String title, String author, LocalDate date, int spentTime, String note, Long userID) {
+    public ReadingLog() {}
+
+    public ReadingLog(String title, String author, LocalDate date, int spentTime, String note, int userId) {
         this.title = title;
         this.author = author;
         this.date = date;
         this.spentTime = spentTime;
         this.note = note;
-        this.userID = userID;
+        this.userId = userId;
     }
 
-    public Long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -76,11 +80,11 @@ public class ReadingLog {
         this.note = note;
     }
 
-    public Long getUserID() {
-        return userID;
+    public int getUserId() {
+        return userId;
     }
 
-    public void setUserID(Long userID) {
-        this.userID = userID;
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 }
