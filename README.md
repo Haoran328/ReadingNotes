@@ -19,6 +19,7 @@
 
 
 ## APIs
+标有*号的是管理员执行的操作。
 
 ### User API
 | Operation  | Path       | Method |
