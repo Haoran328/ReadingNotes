@@ -16,4 +16,5 @@ public interface ReadingLogRepo
     public List<ReadingLog> findAllByUserId(int userId);
     public List<ReadingLog> findAll();
     public List<ReadingLog> findAll(Specification<ReadingLog> spec);
+    public void deleteByUserId(int userId);
 }

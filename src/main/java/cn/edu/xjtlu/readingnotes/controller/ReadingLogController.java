@@ -33,7 +33,9 @@ public class ReadingLogController {
         return repo.findAllByUserId(id);
     }
 
-    @PostMapping(path = "/{id}/readinglog", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @PostMapping(
+        path = "/{id}/readinglog",
+        consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     public List<ReadingLog> getUserReadingLogsByFilters(
             @RequestParam Map<String,String> formData,
             @PathVariable int id) {
@@ -41,4 +43,11 @@ public class ReadingLogController {
         return repo.findAll(specs);
     }
     
+    public void delete(int id) {
+        repo.deleteById(id);
+    }
+
+    public void deleteByUserId(int userId) {
+        repo.deleteByUserId(userId);
+    }
 }
