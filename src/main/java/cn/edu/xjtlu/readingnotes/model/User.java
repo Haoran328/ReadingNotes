@@ -11,5 +11,25 @@ import jakarta.persistence.Table;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
+    
+    @Column(unique = true, nullable = false)
+    private String username;
+    
+    @Column(nullable = false)
+    private String password;
+    
+    private String email;
+    
+    @Lob
+    private byte[] avatar;
+    
+    @Enumerated(EnumType.STRING)
+    private Role role;
+    
+    private boolean active = true;
+}
+
+public enum Role {
+    USER, ADMIN
 }

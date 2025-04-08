@@ -24,30 +24,52 @@ public class ReadingLogController {
     private ReadingLogRepo repo;
 
     @GetMapping("/review")
-    public List<ReadingLog> getReadingLogs() {
+    @PreAuthorize("hasRole('ADMIN')")
+    public List<ReadingLog> getAllLogs() {
         return repo.findAll();
     }
 
-    @GetMapping("/{id}/readinglog")
-    public List<ReadingLog> getUserReadingLogs(@PathVariable int id) {
-        return repo.findAllByUserId(id);
+    @PostMapping("/{id}/log")
+    @PreAuthorize("#id == authentication.principal.id")
+    public ReadingLog createLog(@PathVariable Long id, @RequestBody ReadingLog log) {
+        log.setUserId(id);
+        return repo.save(log);
+    }
+
+    // 在getUserReadingLogs方法添加权限控制
+    @GetMapping("/{userId}/readinglog")
+    @PreAuthorize("#userId == principal.id or hasRole('ADMIN')")
+    public List<ReadingLog> getUserReadingLogs(@PathVariable Long userId) {  // int → Long
+        return repo.findAllByUserId(userId);
     }
 
     @PostMapping(
-        path = "/{id}/readinglog",
+        path = "/{userId}/log",  // 路径修正为/log
         consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     public List<ReadingLog> getUserReadingLogsByFilters(
             @RequestParam Map<String,String> formData,
-            @PathVariable int id) {
+            @PathVariable Long userId) {  // 类型修正为Long
         Specification<ReadingLog> specs = ReadingLogSpecs.specify(id, formData);
         return repo.findAll(specs);
     }
     
-    public void delete(int id) {
-        repo.deleteById(id);
+    // 修改deleteLog方法参数类型
+    @DeleteMapping("/{logId}")
+    @PreAuthorize("#userId == principal.id or hasRole('ADMIN')")
+    public void deleteLog(
+        @PathVariable Long userId,  // 修改为Long类型
+        @PathVariable int logId) {
+        repo.deleteById(logId);
     }
-
-    public void deleteByUserId(int userId) {
-        repo.deleteByUserId(userId);
+    
+    // 修改updateLog方法参数类型
+    @PutMapping("/{logId}")
+    @PreAuthorize("#userId == principal.id or hasRole('ADMIN')")
+    public ReadingLog updateLog(
+        @PathVariable Long userId,  // 保持Long类型
+        @PathVariable int logId,
+        @RequestBody ReadingLog log) {
+        log.setUserId(userId);
+        return repo.save(log);
     }
 }

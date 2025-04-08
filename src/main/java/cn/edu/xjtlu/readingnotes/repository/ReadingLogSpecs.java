@@ -9,7 +9,8 @@ import cn.edu.xjtlu.readingnotes.model.ReadingLog;
 import cn.edu.xjtlu.readingnotes.model.ReadingLog_;
 
 public class ReadingLogSpecs {
-    public static Specification<ReadingLog> specify(Integer id, Map<String,String> formData) {
+    // 修改specify方法参数类型
+    public static Specification<ReadingLog> specify(Long id, Map<String,String> formData) {  // Integer → Long
         Specification<ReadingLog> specs = createdBy(id);
         if (formData.containsKey("title")) {
             specs = specs.and(titledWith(formData.get("title")));
@@ -38,7 +39,7 @@ public class ReadingLogSpecs {
         return specs;
     }
 
-    public static Specification<ReadingLog> createdBy(Integer id) {
+    public static Specification<ReadingLog> createdBy(Long id) {  // Integer → Long
         return (root, query, builder) -> {
             return builder.equal(root.get(ReadingLog_.userId), id);
         };

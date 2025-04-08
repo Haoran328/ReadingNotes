@@ -13,13 +13,23 @@ import jakarta.persistence.Table;
 public class ReadingLog {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    // 修正重复的id字段和错误的userId定义
+    rivate Long userId;  // 保持与User实体ID类型一致
+    private Long userId;    // 用户关联ID
+    
+    public Long getUserId() {
+        return userId;
+    }
+    
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
     private String title;
     private String author;
     private LocalDate date;
     private int spentTime;
     private String note;
-    private int userId;
+    private Long id;
 
     public ReadingLog() {}
 
@@ -29,7 +39,7 @@ public class ReadingLog {
         this.date = date;
         this.spentTime = spentTime;
         this.note = note;
-        this.userId = userId;
+        this.id = id;
     }
 
     public int getId() {
@@ -80,11 +90,13 @@ public class ReadingLog {
         this.note = note;
     }
 
-    public int getUserId() {
-        return userId;
+    public Long getid() {
+        return id;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+    // 修改userId字段类型
+    private Long userId;  // 原为int类型
+    public void setUserId(Long id) {
+        this.id = id;
     }
 }
