@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{fragments/layout :: layout(~{::main}, 'Profile')}">
+<body>
+    <main class="container">
+        <h1 class="my-4">User Profile</h1>
+        <form th:action="@{'/user/' + ${user.id}}" method="post" class="col-md-8">
+            <div class="mb-3">
+                <label class="form-label">Username</label>
+                <input type="text" class="form-control" th:value="${user.username}"
+                       name="username" required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">New Password</label>
+                <input type="password" class="form-control" name="password"
+                       placeholder="Leave blank to keep current password">
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Email</label>
+                <input type="email" class="form-control" th:value="${user.email}"
+                       name="email">
+            </div>
+            <button type="submit" class="btn btn-primary">Save Changes</button>
+        </form>
+    </main>
+</body>
+</html>
