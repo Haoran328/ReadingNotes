@@ -1,5 +1,21 @@
+package cn.edu.xjtlu.readingnotes.controller;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import cn.edu.xjtlu.readingnotes.model.User;
+import cn.edu.xjtlu.readingnotes.repository.UserRepo;
+
 @RestController
-@RequestMapping("/admin")
 public class AdminController {
 
     @Autowired
@@ -8,11 +24,10 @@ public class AdminController {
     @PutMapping("/user/{id}/block")
     public ResponseEntity<?> blockUser(@PathVariable Long id) {
         User user = userRepo.findById(id).orElseThrow();
-        user.setActive(false);
+        user.setIsActive(false);
         return ResponseEntity.ok(userRepo.save(user));
     }
 
-    // 用户管理接口
     @GetMapping("/users")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<List<User>> getAllUsers() {
@@ -25,11 +40,10 @@ public class AdminController {
         @PathVariable Long id, 
         @RequestParam boolean active) {
         User user = userRepo.findById(id).orElseThrow();
-        user.setActive(active);
+        user.setIsActive(active);
         return ResponseEntity.ok(userRepo.save(user));
     }
 
-    // 添加用户删除接口
     @DeleteMapping("/user/{id}")
     @PreAuthorize("hasRole('ADMIN')")
     public void deleteUser(@PathVariable Long id) {
