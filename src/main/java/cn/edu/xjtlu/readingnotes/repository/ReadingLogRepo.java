@@ -11,10 +11,10 @@ import cn.edu.xjtlu.readingnotes.model.ReadingLog;
 
 @Repository
 public interface ReadingLogRepo
-        extends CrudRepository<ReadingLog, Integer>,
+        extends CrudRepository<ReadingLog, Long>,
                 JpaSpecificationExecutor<ReadingLog> {
-    public List<ReadingLog> findAllByUserId(int userId);
     public List<ReadingLog> findAll();
     public List<ReadingLog> findAll(Specification<ReadingLog> spec);
-    public void deleteByUserId(int userId);
+    public List<ReadingLog> findAllByUserId(Long userId);
+    public Long deleteByUserId(Long userId);
 }

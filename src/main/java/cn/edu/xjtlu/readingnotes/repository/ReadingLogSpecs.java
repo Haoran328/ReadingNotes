@@ -9,8 +9,8 @@ import cn.edu.xjtlu.readingnotes.model.ReadingLog;
 import cn.edu.xjtlu.readingnotes.model.ReadingLog_;
 
 public class ReadingLogSpecs {
-    public static Specification<ReadingLog> specify(Integer id, Map<String,String> formData) {
-        Specification<ReadingLog> specs = createdBy(id);
+    public static Specification<ReadingLog> specify(Long userId, Map<String,String> formData) {
+        Specification<ReadingLog> specs = createdBy(userId);
         if (formData.containsKey("title")) {
             specs = specs.and(titledWith(formData.get("title")));
         }
@@ -38,9 +38,9 @@ public class ReadingLogSpecs {
         return specs;
     }
 
-    public static Specification<ReadingLog> createdBy(Integer id) {
+    public static Specification<ReadingLog> createdBy(Long userId) {
         return (root, query, builder) -> {
-            return builder.equal(root.get(ReadingLog_.userId), id);
+            return builder.equal(root.get(ReadingLog_.userId), userId);
         };
     }
 

@@ -13,17 +13,17 @@ import jakarta.persistence.Table;
 public class ReadingLog {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
     private String title;
     private String author;
     private LocalDate date;
     private int spentTime;
     private String note;
-    private int userId;
+    private Long userId;
 
     public ReadingLog() {}
 
-    public ReadingLog(String title, String author, LocalDate date, int spentTime, String note, int userId) {
+    public ReadingLog(String title, String author, LocalDate date, int spentTime, String note, Long userId) {
         this.title = title;
         this.author = author;
         this.date = date;
@@ -32,11 +32,11 @@ public class ReadingLog {
         this.userId = userId;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -80,11 +80,11 @@ public class ReadingLog {
         this.note = note;
     }
 
-    public int getUserId() {
+    public Long getUserId() {
         return userId;
     }
-
-    public void setUserId(int userId) {
+    
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 }
