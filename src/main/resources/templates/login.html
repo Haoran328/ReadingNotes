@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+      th:replace="~{fragments/layout :: layout(~{::main}, 'Login')}">
+<body>
+    <main class="container">
+        <h1 class="my-4">User Login</h1>
+        <form th:action="@{/login}" method="post" class="col-md-6">
+            <div class="mb-3">
+                <input type="text" class="form-control" name="username" 
+                       placeholder="Username" required>
+            </div>
+            <div class="mb-3">
+                <input type="password" class="form-control" name="password"
+                       placeholder="Password" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Login</button>
+            <a th:href="@{/register}" class="btn btn-link">Create Account</a>
+        </form>
+    </main>
+</body>
+</html>
