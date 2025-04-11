@@ -4,15 +4,12 @@
 <body>
     <main class="container">
         <h1 class="my-4" th:text="${log?.id} ? 'Edit Log' : 'New Log'"></h1>
-        <form th:action="${log?.id} ? @{'/logs/' + ${log.id}} : @{/logs}" 
+        <form th:action="${log?.id} ? @{'/api/log/' + ${log.id}} : @{/api/log?action=create}" 
               method="post" class="col-md-8">
             <input type="hidden" name="_method" th:value="${log?.id} ? 'put' : 'post'">
             
             <div class="mb-3">
                 <label class="form-label">Title</label>
-              
-                <input type="text" class="form-control" name="title" 
-                       th:value="${log?.title}" required>
                 
                 <input type="text" class="form-control" name="title" 
                        th:value="${log?.title}" required minlength="3" maxlength="100">

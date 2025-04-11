@@ -1,4 +1,4 @@
-package cn.edu.xjtlu.readingnotes.model;
+package cn.edu.xjtlu.readingnotes.readinglog;
 
 import java.time.LocalDate;
 

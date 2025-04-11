@@ -1,4 +1,4 @@
-package cn.edu.xjtlu.readingnotes.controller;
+package cn.edu.xjtlu.readingnotes.user.controller;
 
 import java.util.List;
 
@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import cn.edu.xjtlu.readingnotes.model.User;
-import cn.edu.xjtlu.readingnotes.repository.UserRepo;
+import cn.edu.xjtlu.readingnotes.user.User;
+import cn.edu.xjtlu.readingnotes.user.UserRepo;
 
 @RestController
 public class AdminController {
@@ -22,9 +22,9 @@ public class AdminController {
     private UserRepo userRepo;
 
     @PutMapping("/user/{id}/block")
-    public ResponseEntity<?> blockUser(@PathVariable Long id) {
+    public ResponseEntity<?> lockUser(@PathVariable Long id) {
         User user = userRepo.findById(id).orElseThrow();
-        user.setIsActive(false);
+        user.setIsNonLocked(false);
         return ResponseEntity.ok(userRepo.save(user));
     }
 
@@ -37,10 +37,10 @@ public class AdminController {
     @PutMapping("/user/{id}/status")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> updateUserStatus(
-        @PathVariable Long id, 
-        @RequestParam boolean active) {
+            @PathVariable Long id, 
+            @RequestParam boolean active) {
         User user = userRepo.findById(id).orElseThrow();
-        user.setIsActive(active);
+        user.setIsNonLocked(active);
         return ResponseEntity.ok(userRepo.save(user));
     }
 

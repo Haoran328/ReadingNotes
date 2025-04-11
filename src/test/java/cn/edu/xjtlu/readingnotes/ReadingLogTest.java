@@ -1,11 +1,15 @@
 package cn.edu.xjtlu.readingnotes;
 
 import org.junit.jupiter.api.Test;
+
+import cn.edu.xjtlu.readingnotes.readinglog.ReadingLog;
+
 import java.time.LocalDate;
 import static org.junit.jupiter.api.Assertions.*;
 
 //单元测试
-    @Test//类正常创建
+public class ReadingLogTest {
+    @Test //类正常创建
     void testReadingLogCreation() {
 
         ReadingLog log = new ReadingLog("Test Title", "Test Author", LocalDate.now(), 30, "Test Note", 1L);
@@ -20,7 +24,7 @@ import static org.junit.jupiter.api.Assertions.*;
         assertEquals(1L, log.getUserId(), "用户 ID 应该正确设置");
     }
 
-    @Test//方法正常使用
+    @Test //方法正常使用
     void testReadingLogMethods() {
 
         ReadingLog log = new ReadingLog();

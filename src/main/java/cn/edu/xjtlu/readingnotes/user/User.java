@@ -1,5 +1,6 @@
-package cn.edu.xjtlu.readingnotes.model;
+package cn.edu.xjtlu.readingnotes.user;
 
+import cn.edu.xjtlu.readingnotes.util.Role;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -7,10 +8,7 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.Lob;
 import jakarta.persistence.Table;
-
-import cn.edu.xjtlu.readingnotes.util.Role;
 
 @Entity
 @Table(name = "users")
@@ -26,22 +24,20 @@ public class User {
     private String password;
     
     private String email;
-    
-    @Lob
-    private byte[] avatar;
-    
+    private String avatar;
+
     @Enumerated(EnumType.STRING)
     private Role role;
     
-    private boolean isActive = true;
+    private boolean isNonLocked;
+    private boolean isEnabled;
 
     public User() {}
 
-    public User(String username, String password, String email, Role role) {
+    public User(String username, String password, String email) {
         this.username = username;
         this.password = password;
         this.email = email;
-        this.role = role;
     }
 
     public Long getId() {
@@ -76,11 +72,11 @@ public class User {
         this.email = email;
     }
 
-    public byte[] getAvatar() {
+    public String getAvatar() {
         return avatar;
     }
 
-    public void setAvatar(byte[] avatar) {
+    public void setAvatar(String avatar) {
         this.avatar = avatar;
     }
 
@@ -92,11 +88,19 @@ public class User {
         this.role = role;
     }
 
-    public boolean getIsActive() {
-        return isActive;
+    public boolean getIsNonLocked() {
+        return isNonLocked;
     }
 
-    public void setIsActive(boolean isActive) {
-        this.isActive = isActive;
+    public void setIsNonLocked(boolean isNonLocked) {
+        this.isNonLocked = isNonLocked;
+    }
+
+    public boolean getIsEnabled() {
+        return isEnabled;
+    }
+
+    public void setIsEnabled(boolean isEnabled) {
+        this.isEnabled = isEnabled;
     }
 }

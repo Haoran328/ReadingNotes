@@ -1,45 +1,55 @@
-package cn.edu.xjtlu.readingnotes.controller;
+package cn.edu.xjtlu.readingnotes.user.controller;
+
+import org.springframework.http.MediaType;
+
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.Authentication;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import cn.edu.xjtlu.readingnotes.model.User;
-import cn.edu.xjtlu.readingnotes.repository.UserRepo;
+import cn.edu.xjtlu.readingnotes.user.User;
+import cn.edu.xjtlu.readingnotes.user.UserRepo;
 import cn.edu.xjtlu.readingnotes.util.Role;
 
+
 @RestController
+@RequestMapping("/api/user")
 public class UserController {
 
     @Autowired
     private UserRepo userRepo;
 
-    @PostMapping("/register")
-    public ResponseEntity<?> register(@RequestBody User user) {
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
+    private PasswordEncoder passwordEncoder =
+            PasswordEncoderFactories.createDelegatingPasswordEncoder();
+    
+    @PostMapping(path = "/register", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    public ResponseEntity<?> register(@RequestParam Map<String,String> params) {
+        final String name = params.get("username");
+        final String key = passwordEncoder.encode(params.get("password"));
+        final String mail = params.get("email");
+        final User user = new User(name, key, mail);
         user.setRole(Role.USER);
+        user.setIsNonLocked(false);
+        user.setIsEnabled(false);
         return ResponseEntity.ok(userRepo.save(user));
     }
-
+    
     @GetMapping("/{id}")
     public ResponseEntity<User> getProfile(@PathVariable Long id) {
         return ResponseEntity.ok(userRepo.findById(id).orElseThrow());
-    }
-
-    @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody LoginRequest request) {
-        Authentication auth = authenticationManager.authenticate(
-            new UsernamePasswordAuthenticationToken(request.username(), request.password())
-        );
-        String token = jwtUtil.generateToken(auth);
-        return ResponseEntity.ok(new LoginResponse(token));
     }
 
     @PutMapping("/{id}")

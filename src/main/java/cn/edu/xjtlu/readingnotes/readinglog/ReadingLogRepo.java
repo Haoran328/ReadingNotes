@@ -1,4 +1,4 @@
-package cn.edu.xjtlu.readingnotes.repository;
+package cn.edu.xjtlu.readingnotes.readinglog;
 
 import java.util.List;
 
@@ -6,8 +6,6 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
-
-import cn.edu.xjtlu.readingnotes.model.ReadingLog;
 
 @Repository
 public interface ReadingLogRepo

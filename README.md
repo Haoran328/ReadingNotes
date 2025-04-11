@@ -33,14 +33,11 @@
 | (Un)Block* | /user/{id} | PUT    |
 
 ### Reading log API
-| Operation   | Path                  | Method |
-|-------------|-----------------------|--------|
-| List log    | /{userid}/log         | GET    |
-| Filter log  | /{userid}/log         | POST   |
-| Create log  | /{userid}/log         | POST   |
-| Read log    | /{userid}/log/{logid} | GET    |
-| Edit log    | /{userid}/log/{logid} | POST   |
-| Delete log  | /{userid}/log/{logid} | DELETE |
-| List log*   | /log                  | GET    |
-| Filter log* | /log                  | POST   |
-| Delete log* | /log/{logid}          | DELETE |
+| Operation   | Path         | Method |
+|-------------|--------------|--------|
+| List log    | /log         | GET    |
+| Filter log  | /log         | POST   |
+| Create log  | /log         | POST   |
+| Read log    | /log/{logid} | GET    |
+| Edit log    | /log/{logid} | POST   |
+| Delete log  | /log/{logid} | DELETE |
