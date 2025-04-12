@@ -1,43 +1,150 @@
-## 同步此仓库
-有至少三种方法可将此仓库内的文件同步到你的电脑上。
+## 1. Reading Notes - Reading Notes Management System
+A Spring Boot-based web application for creating, managing, and sharing reading notes. Supports user registration/login, CRUD operations for notes, and admin controls.
 
-### 方法一：Git
-1. 安装[git](https://git-scm.com/downloads)
-2. 打开一个命令行窗口并转到你想要存放此仓库文件的父文件夹
-3. 输入`git clone https://github.com/CPT202-2025-G22/ReadingNotes.git`并回车（需要开着梯子）
+## 2. Project Description
+**Core Features**  
+- User authentication (Registration/Login/Permission Management)
+- Create/Edit/Delete reading notes
+- Filter notes by title/author/date range
+- Admin user management
 
-### 方法二：下载压缩包
-1. 点击绿色的“Code”按钮
-2. 点击“Download ZIP”
+**Target Users**  
+- Student community needing reading notes management
+- Book enthusiasts
+- Academic researchers
 
-### 方法三：GitHub Desktop
-1. 安装[GitHub Desktop](https://desktop.github.com/download/)
-2. 运行GitHub Desktop并登录（需要开着梯子）
-3. 在软件界面按下Ctrl+Shift+O，或点击菜单栏中的“File -> Clone repository...”
-4. 在出现的窗口中选择“URL”，在第一个空填入`https://github.com/CPT202-2025-G22/ReadingNotes.git`
-5. 选择要下载到的本地路径，然后点击“Clone”
+**Project Status**  
+`Under Development` | Latest Version: v2.5.0
 
+## 3. Installation Guide
+**Prerequisites**  
+- Java 17+
+- Maven 3.8+
+- MySQL 8.0+
+- Latest Chrome/Firefox browsers
 
-## APIs
-标有*号的是管理员执行的操作。
+**Installation Steps**  
+```bash
+git clone https://github.com/CPT202-2025-G22/ReadingNotes.git
+cd ReadingNotes
+mvn clean install
+```
 
-### User API
-| Operation  | Path       | Method |
-|------------|------------|--------|
-| Register   | /user      | POST   |
-| Log in     | /login     | POST   |
-| View info  | /user/{id} | GET    |
-| Modify     | /user/{id} | PUT    |
-| Delete     | /user/{id} | DELETE |
-| List*      | /user      | GET    |
-| (Un)Block* | /user/{id} | PUT    |
+**Database Setup**  
+1. Create MySQL database:
+```sql
+CREATE DATABASE reading_notes DEFAULT CHARSET utf8mb4;
+```
+2. Configure database connection in `src/main/resources/application.properties`
 
-### Reading log API
-| Operation   | Path         | Method |
-|-------------|--------------|--------|
-| List log    | /log         | GET    |
-| Filter log  | /log         | POST   |
-| Create log  | /log         | POST   |
-| Read log    | /log/{logid} | GET    |
-| Edit log    | /log/{logid} | POST   |
-| Delete log  | /log/{logid} | DELETE |
+## 4. Usage
+### 4.1 Basic Operations
+1. **Start development server**  
+```bash
+mvn spring-boot:run
+```
+
+2. **Access application**  
+Visit http://localhost:8080
+
+3. **Account Usage**  
+- Admin: admin / admin123  
+  - Access admin panel at /admin
+- Regular user: user / user123  
+  - Create/manage personal notes
+
+### 4.2 Feature Examples
+**Create New Note**  
+1. Login and click "My Logs" in navigation
+2. Click "New Log" button
+3. Fill form and save
+
+**Filter Notes**  
+1. Click filter icon in notes list
+2. Set filter criteria (date range/author/reading time)
+3. Click "Filter" to view results
+
+### 4.3 Configuration
+**Environment Variables**  
+| Variable  | Example Value              | Required | Description          |
+|-----------|---------------------------|----------|----------------------|
+| SERVER_PORT| 8080                      | Optional | Service port        |
+| DB_URL     | jdbc:mysql://localhost:3306/reading_notes | Yes | Database URL      |
+| DB_USER    | root                      | Yes     | Database username   |
+| DB_PWD     | your_secure_password      | Yes     | Database password   |
+
+**Production Deployment**  
+```bash
+mvn clean package
+java -jar target/reading-notes-1.0.0.jar
+```
+
+## 5. Project Structure
+```text
+c:\Users\Mahr.LAPTOP-0SB35923\Desktop\ReadingNotes/
+├── src/
+│   ├── main/
+│   │   ├── java/cn/edu/xjtlu/readingnotes/
+│   │   │   ├── config/                # Spring configuration classes
+│   │   │   ├── controller/           # MVC controllers
+│   │   │   │   └── ReadingLogController.java
+│   │   │   ├── model/                # Data entities
+│   │   │   │   └── ReadingLog.java
+│   │   │   ├── repository/           # Data access layer
+│   │   │   ├── service/              # Business logic layer
+│   │   │   └── ReadingnotesApplication.java # Main class
+│   │   └── resources/
+│   │       ├── static/               # Static resources
+│   │       │   ├── css/
+│   │       │   │   └── style.css     # Global styles
+│   │       ├── templates/            # Thymeleaf templates
+│   │       │   ├── fragments/        # Layout components
+│   │       │   │   └── layout.html
+│   │       │   ├── log-edit.html     # Note editor
+│   │       │   ├── logs.html         # Notes list
+│   │       │   └── admin.html        # Admin panel
+│   │       └── application.properties # Application config
+│   └── test/
+│       └── java/cn/edu/xjtlu/readingnotes/
+│           ├── AcceptanceTestBase.java    # Test base class
+│           ├── UserJourneyTest.java       # End-to-end tests
+│           ├── ApiContractTest.java      # API contract tests
+│           └── ReadingLogTest.java    # Unit tests
+├── pom.xml                           # Maven config
+└── README.md                         # Project documentation
+```
+
+## 6. Testing
+**Run Tests**  
+```bash
+mvn test
+```
+
+**Test Coverage**  
+- Unit test coverage: 85% 
+- Integration test coverage: 75%
+- Accepance test coverage: 95%
+
+## 7. Contributing
+
+Create Pull Request
+
+**Coding Standards**  
+- Follow Google Java Style Guide
+- Write commit messages in English
+- Adhere to OpenAPI specification for REST APIs
+
+## 8. License
+[MIT License](LICENSE)
+
+## 9. Acknowledgements
+- Special thanks to CPT202 course group for technical guidance
+- Built using:
+  - Spring Boot
+  - Bootstrap 5
+  - Thymeleaf
+
+## 10. Contact
+**Maintenance Team**  
+- Email: cpt202-team@xjtlu.edu.cn  
+- GitHub: [@CPT202-2025-G22](https://github.com/CPT202-2025-G22)

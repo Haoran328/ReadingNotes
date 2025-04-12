@@ -7,24 +7,22 @@ import cn.edu.xjtlu.readingnotes.readinglog.ReadingLog;
 import java.time.LocalDate;
 import static org.junit.jupiter.api.Assertions.*;
 
-//单元测试
+// Unit tests
 public class ReadingLogTest {
-    @Test //类正常创建
+    @Test // Test class creation
     void testReadingLogCreation() {
-
         ReadingLog log = new ReadingLog("Test Title", "Test Author", LocalDate.now(), 30, "Test Note", 1L);
 
-        assertNotNull(log, "ReadingLog 对象应该不为 null");
-
-        assertEquals("Test Title", log.getTitle(), "标题应该正确设置");
-        assertEquals("Test Author", log.getAuthor(), "作者应该正确设置");
-        assertNotNull(log.getDate(), "日期应该不为 null");
-        assertEquals(30, log.getSpentTime(), "花费时间应该正确设置");
-        assertEquals("Test Note", log.getNote(), "笔记内容应该正确设置");
-        assertEquals(1L, log.getUserId(), "用户 ID 应该正确设置");
+        assertNotNull(log, "ReadingLog object should not be null");
+        assertEquals("Test Title", log.getTitle(), "Title should be set correctly");
+        assertEquals("Test Author", log.getAuthor(), "Author should be set correctly");
+        assertNotNull(log.getDate(), "Date should not be null");
+        assertEquals(30, log.getSpentTime(), "Spent time should be set correctly");
+        assertEquals("Test Note", log.getNote(), "Note content should be set correctly");
+        assertEquals(1L, log.getUserId(), "User ID should be set correctly");
     }
 
-    @Test //方法正常使用
+    @Test // Test method usage
     void testReadingLogMethods() {
 
         ReadingLog log = new ReadingLog();
@@ -36,12 +34,12 @@ public class ReadingLogTest {
         log.setNote("Test Note");
         log.setUserId(1L);
 
-        assertEquals("Test Title", log.getTitle(), "标题应该正确设置");
-        assertEquals("Test Author", log.getAuthor(), "作者应该正确设置");
-        assertNotNull(log.getDate(), "日期应该不为 null");
-        assertEquals(30, log.getSpentTime(), "花费时间应该正确设置");
-        assertEquals("Test Note", log.getNote(), "笔记内容应该正确设置");
-        assertEquals(1L, log.getUserId(), "用户 ID 应该正确设置");
+        assertEquals("Test Title", log.getTitle(), "Title should be set correctly");
+        assertEquals("Test Author", log.getAuthor(), "Author should be set correctly");
+        assertNotNull(log.getDate(), "Date should not be null");
+        assertEquals(30, log.getSpentTime(), "Spent time should be set correctly");
+        assertEquals("Test Note", log.getNote(), "Note content should be set correctly");
+        assertEquals(1L, log.getUserId(), "User ID should be set correctly");
 
         log.setTitle("Updated Title");
         log.setAuthor("Updated Author");
@@ -50,11 +48,11 @@ public class ReadingLogTest {
         log.setNote("Updated Note");
         log.setUserId(2L);
 
-        assertEquals("Updated Title", log.getTitle(), "标题应该更新为 'Updated Title'");
-        assertEquals("Updated Author", log.getAuthor(), "作者应该更新为 'Updated Author'");
-        assertNotNull(log.getDate(), "日期应该不为 null");
-        assertEquals(45, log.getSpentTime(), "花费时间应该更新为 45");
-        assertEquals("Updated Note", log.getNote(), "笔记内容应该更新为 'Updated Note'");
-        assertEquals(2L, log.getUserId(), "用户 ID 应该更新为 2");
+        assertEquals("Updated Title", log.getTitle(), "Title should be updated to 'Updated Title'");
+        assertEquals("Updated Author", log.getAuthor(), "Author should be updated to 'Updated Author'");
+        assertNotNull(log.getDate(), "Date should not be null");
+        assertEquals(45, log.getSpentTime(), "Spent time should be updated to 45");
+        assertEquals("Updated Note", log.getNote(), "Note content should be updated to 'Updated Note'");
+        assertEquals(2L, log.getUserId(), "User ID should be updated to 2");
     }
 }

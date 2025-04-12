@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       th:replace="~{fragments/layout :: layout(~{::main}, 'Profile')}">
-<body>
+<body class="profile-page">
     <main class="container" th:object="${user}">
         <h1 class="my-4">User Profile</h1>
         <form th:action="@{'/user/' + *{id}}" method="post" class="col-md-8">

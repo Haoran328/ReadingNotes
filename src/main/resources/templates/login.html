@@ -1,9 +1,12 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" 
       th:replace="~{fragments/layout :: layout(~{::main}, 'Login')}">
-<body>
+<body class="login-page">
     <main class="container">
         <h1 class="my-4">User Login</h1>
+        <div th:if="${param.registered}" class="alert alert-success">
+            Registration successful! Please login.
+        </div>
         <form th:action="@{/login}" method="post" class="col-md-6">
             <div class="mb-3">
                 <input type="text" class="form-control" name="username" 
