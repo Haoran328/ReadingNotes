@@ -3,28 +3,30 @@ package cn.edu.xjtlu.readingnotes;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springdoc.core.OpenAPIService;
-import com.atlassian.oai.validator.OpenApiValidator;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import static com.atlassian.oai.validator.OpenApiValidationLevel.WARN;
+import io.swagger.v3.oas.models.OpenAPI;
+import io.swagger.v3.parser.OpenAPIV3Parser;
+import org.junit.jupiter.api.Assertions;
 
 @SpringBootTest
 class ApiContractTest {
 
     @Autowired
-    private OpenAPIService openAPIService;
-
+    private OpenAPI springOpenApi; 
     @Autowired
     private ObjectMapper objectMapper;
-
+    
     @Test
-    void validateApiSpecification() throws Exception {
-        String openApiSpec = objectMapper.writeValueAsString(openAPIService.getOpenAPI());
+    void shouldGenerateValidOpenAPISpec() throws Exception {
+        // Directly use the injected OpenAPI object
+        String openApiSpec = objectMapper.writeValueAsString(springOpenApi);
         
-        OpenApiValidator validator = OpenApiValidator.forSpecification(openApiSpec)
-            .withOperationValidationLevel(WARN)
-            .build();
+        // Validate using Swagger parser
+        OpenAPI parsedOpenApi = new OpenAPIV3Parser().readContents(openApiSpec).getOpenAPI();
         
-        validator.validate();
+        // Add validation assertions
+        Assertions.assertNotNull(parsedOpenApi, "OpenAPI specification parsing failed");
+        Assertions.assertNotNull(parsedOpenApi.getInfo(), "Missing API basic information");
+        Assertions.assertFalse(parsedOpenApi.getPaths().isEmpty(), "API paths not generated correctly");
     }
 }

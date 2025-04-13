@@ -10,6 +10,7 @@ import org.testcontainers.containers.MySQLContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.AfterEach;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
@@ -22,7 +23,10 @@ public abstract class AcceptanceTestBase {
     protected JdbcTemplate jdbcTemplate;
     
     @Container
-    static final MySQLContainer<?> mysql = new MySQLContainer<>("mysql:8.0");
+    static final MySQLContainer<?> mysql = new MySQLContainer<>("mysql:8.0")
+        .withDatabaseName("testdb")
+        .withUsername("testuser")
+        .withPassword("testpass");
     
     @Autowired
     protected WebApplicationContext context;
