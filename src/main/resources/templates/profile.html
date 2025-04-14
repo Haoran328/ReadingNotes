@@ -5,11 +5,20 @@
     <main class="container" th:object="${user}">
         <h1 class="my-4">User Profile</h1>
         <form th:action="@{'/user/' + *{id}}" method="post" class="col-md-8">
+            <div th:if="${error}" class="alert alert-danger mt-3" th:text="${error}"></div>
+            <div th:if="${success}" class="alert alert-success mt-3" th:text="${success}"></div>
             <div class="mb-3">
                 <label class="form-label">Username</label>
                 <input type="text" class="form-control" th:value="*{username}"
                        name="username" required>
             </div>
+            <!-- Added old password authentication -->
+            <div class="mb-3">
+                <label class="form-label">Current Password</label>
+                <input type="password" class="form-control" 
+                       name="oldPassword" required>
+            </div>
+            <!-- Original new password field -->
             <div class="mb-3">
                 <label class="form-label">New Password</label>
                 <input type="password" class="form-control" name="password"

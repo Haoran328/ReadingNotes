@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import cn.edu.xjtlu.readingnotes.user.User;
 import cn.edu.xjtlu.readingnotes.user.UserRepo;
 import cn.edu.xjtlu.readingnotes.util.Role;
@@ -36,7 +36,7 @@ public class UserController {
             PasswordEncoderFactories.createDelegatingPasswordEncoder();
     
     @PostMapping(path = "/register", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    public ResponseEntity<?> register(@RequestParam Map<String,String> params) {
+    public String register(@RequestParam Map<String,String> params) {
         final String name = params.get("username");
         final String key = passwordEncoder.encode(params.get("password"));
         final String mail = params.get("email");
@@ -44,7 +44,8 @@ public class UserController {
         user.setRole(Role.USER);
         user.setIsNonLocked(false);
         user.setIsEnabled(false);
-        return ResponseEntity.ok(userRepo.save(user));
+        userRepo.save(user);
+        return "redirect:/login?registered";
     }
     
     @GetMapping("/{id}")
@@ -54,13 +55,21 @@ public class UserController {
 
     @PutMapping("/{id}")
     @PreAuthorize("#id == principal.id or hasRole('ADMIN')")
-    public ResponseEntity<User> updateUser(
+    public String updateUser(
         @PathVariable Long id,
-        @RequestBody User user) {
+        @RequestParam String oldPassword,
+        @RequestBody User user,
+        RedirectAttributes redirectAttributes) {
         
         User existing = userRepo.findById(id).orElseThrow();
         
-        // 新增字段校验
+        // Verify old password
+        if (!passwordEncoder.matches(oldPassword, existing.getPassword())) {
+            redirectAttributes.addFlashAttribute("error", "Current password is incorrect");
+            return "redirect:/profile";
+        }
+    
+        // Added field checksum save logic
         if (user.getUsername() != null) {
             existing.setUsername(user.getUsername());
         }
@@ -69,6 +78,9 @@ public class UserController {
         }
         existing.setEmail(user.getEmail());
         existing.setAvatar(user.getAvatar());
-        return ResponseEntity.ok(userRepo.save(existing));
-    }
-}
+        
+        userRepo.save(existing);
+        redirectAttributes.addFlashAttribute("success", "Password updated");
+        return "redirect:/profile";
+    } 
+}  

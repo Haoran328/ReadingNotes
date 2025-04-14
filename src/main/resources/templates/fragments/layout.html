@@ -13,7 +13,7 @@
 <body>
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container">
-            <a class="navbar-brand" th:href="@{/}">Reading Notes</a>
+            <span class="navbar-brand">Reading Notes</span>
             <div class="navbar-collapse">
                 <div sec:authorize="!isAuthenticated()" class="navbar-nav">
                     <a class="nav-link" th:href="@{/login}">Login</a>
