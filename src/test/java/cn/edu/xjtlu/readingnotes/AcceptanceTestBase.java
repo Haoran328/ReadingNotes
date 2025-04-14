@@ -9,21 +9,33 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.testcontainers.containers.MySQLContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
+import org.testcontainers.utility.DockerImageName;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.AfterEach;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 
+import cn.edu.xjtlu.readingnotes.repository.ReadingLogRepository;
+import cn.edu.xjtlu.readingnotes.user.repository.UserRepository;
+
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @Testcontainers
 public abstract class AcceptanceTestBase {
     
     @Autowired
+    protected ReadingLogRepository readingLogRepository;
+    
+    @Autowired
+    protected UserRepository userRepository;
+    
+    @Autowired
     protected JdbcTemplate jdbcTemplate;
     
     @Container
-    static final MySQLContainer<?> mysql = new MySQLContainer<>("mysql:8.0")
+
+    static final MySQLContainer<?> mysql = new MySQLContainer<>(DockerImageName.parse("mysql:8.0.36"))
+        .withReuse(true)
         .withDatabaseName("testdb")
         .withUsername("testuser")
         .withPassword("testpass");
@@ -50,7 +62,7 @@ public abstract class AcceptanceTestBase {
 
     @AfterEach
     void cleanup() {
-        jdbcTemplate.execute("DELETE FROM reading_log");
-        jdbcTemplate.execute("DELETE FROM users");
+        readingLogRepository.deleteAll();
+        userRepository.deleteAll();
     }
 }
