@@ -37,7 +37,7 @@ public class UserInfo implements UserDetails {
 
     public static UserInfo build(User user) {
         List<GrantedAuthority> authorities = Arrays.asList(
-            new SimpleGrantedAuthority(user.getRole().name()));
+            new SimpleGrantedAuthority("ROLE_" + user.getRole().name()));
 
         return new UserInfo(
             user.getId(),

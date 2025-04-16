@@ -5,7 +5,6 @@ import java.util.Map;
 import java.util.function.Supplier;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.MediaType;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
@@ -21,10 +20,6 @@ import cn.edu.xjtlu.readingnotes.readinglog.ReadingLogService;
 import cn.edu.xjtlu.readingnotes.util.UserInfo;
 import org.springframework.web.bind.annotation.RequestParam;
 
-
-
-
-
 @Controller
 public class ReadingLogViewController {
 
@@ -34,7 +29,7 @@ public class ReadingLogViewController {
     private Supplier<? extends Exception> supplier = () -> new Exception("Log not found");
 
     @GetMapping("/log")
-    @PreAuthorize("authenticated")
+    @PreAuthorize("isAuthenticated()")
     public String viewLog(Authentication authentication, Model model) throws Exception {
         List<ReadingLog> logs;
         if (authentication.getAuthorities().stream().findAny().orElseThrow().getAuthority().endsWith("ADMIN")) {
@@ -92,7 +87,7 @@ public class ReadingLogViewController {
     }
     
     @GetMapping("/log/{logId}")
-    @PreAuthorize("authenticated")
+    @PreAuthorize("isAuthenticated()")
     public String viewLog(
             Authentication authentication,
             @PathVariable Long logId,

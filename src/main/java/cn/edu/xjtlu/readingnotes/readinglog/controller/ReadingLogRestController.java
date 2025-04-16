@@ -2,14 +2,11 @@ package cn.edu.xjtlu.readingnotes.readinglog.controller;
 
 import java.net.URI;
 import java.time.LocalDate;
-import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -80,7 +77,7 @@ public class ReadingLogRestController {
     }
     
     @DeleteMapping("/{logId}")
-    @PreAuthorize("authenticated")
+    @PreAuthorize("isAuthenticated()")
     public ResponseEntity<String> deleteLog(@PathVariable Long logId)
             throws Exception {
         repo.deleteById(logId);
