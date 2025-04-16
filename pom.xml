@@ -32,6 +32,27 @@
 	</properties>
 	<dependencies>
 
+		<!--Common-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-thymeleaf</artifactId>
+		</dependency>
+
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-data</artifactId>
@@ -39,78 +60,35 @@
 		</dependency>
 
 		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-data-jpa</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>com.mysql</groupId>
-			<artifactId>mysql-connector-j</artifactId>
-			<scope>runtime</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-		    <groupId>org.testcontainers</groupId>
-		    <artifactId>junit-jupiter</artifactId>
-		    <version>1.19.7</version>
-		    <scope>test</scope>
-		</dependency>
-		<dependency>
-		    <groupId>org.testcontainers</groupId>
-		    <artifactId>mysql</artifactId>
-		    <version>1.19.7</version> 
-		    <scope>test</scope>
-		</dependency>
-		
-		<dependency>
 		    <groupId>org.springdoc</groupId>
 		    <artifactId>springdoc-openapi-webmvc-core</artifactId>
 		    <version>1.6.14</version>
 		</dependency>
-		<dependency>
-		    <groupId>com.fasterxml.jackson.core</groupId>
-		    <artifactId>jackson-databind</artifactId>
-		    <version>2.13.4</version>
-		</dependency>
 
-		<dependency>
-			<groupId>org.springframework.security</groupId>
-			<artifactId>spring-security-test</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>io.swagger.parser.v3</groupId>
-			<artifactId>swagger-parser</artifactId>
-			<version>2.1.16</version>
-			<scope>test</scope>
-		</dependency>
-		
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-security</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-thymeleaf</artifactId>
-		</dependency>
 		<dependency>
 			<groupId>org.thymeleaf.extras</groupId>
 			<artifactId>thymeleaf-extras-springsecurity6</artifactId>
 			<version>3.1.3.RELEASE</version>
 		</dependency>
+
 		<dependency>
-		    <groupId>org.hamcrest</groupId>
-		    <artifactId>hamcrest</artifactId>
-		    <version>2.2</version>
-		    <scope>test</scope>
+		    <groupId>com.fasterxml.jackson.core</groupId>
+		    <artifactId>jackson-databind</artifactId>
+		    <version>[2.13.4.2,)</version>
+		</dependency>
+
+		<!--Runtime-->
+		<dependency>
+			<groupId>com.mysql</groupId>
+			<artifactId>mysql-connector-j</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+
+		<!--Test-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
 		</dependency>
 		
 		<!-- 
@@ -120,16 +98,45 @@
 		    <scope>test</scope>
 		</dependency> 
 		-->
+
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+		    <groupId>org.testcontainers</groupId>
+		    <artifactId>junit-jupiter</artifactId>
+		    <version>1.19.7</version>
+		    <scope>test</scope>
+		</dependency>
+
+		<dependency>
+		    <groupId>org.testcontainers</groupId>
+		    <artifactId>mysql</artifactId>
+		    <version>1.19.7</version> 
+		    <scope>test</scope>
+		</dependency>
+
 		<dependency>
 		    <groupId>io.swagger.core.v3</groupId>
 		    <artifactId>swagger-core</artifactId>
 		    <version>2.2.15</version>
 		    <scope>test</scope>
 		</dependency>
+
 		<dependency>
-		    <groupId>io.swagger.parser.v3</groupId>
-		    <artifactId>swagger-parser</artifactId>
-		    <version>2.1.16</version>
+			<groupId>io.swagger.parser.v3</groupId>
+			<artifactId>swagger-parser</artifactId>
+			<version>2.1.16</version>
+			<scope>test</scope>
+		</dependency>
+		
+		<dependency>
+		    <groupId>org.hamcrest</groupId>
+		    <artifactId>hamcrest</artifactId>
+		    <version>2.2</version>
 		    <scope>test</scope>
 		</dependency>
 		
