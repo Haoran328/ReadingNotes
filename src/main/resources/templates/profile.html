@@ -4,7 +4,8 @@
 <body class="profile-page">
     <main class="container" th:object="${user}">
         <h1 class="my-4">User Profile</h1>
-        <form th:action="@{'/user/' + *{id}}" method="post" class="col-md-8">
+        <form th:action="@{'/api/user/' + *{id}}" method="post" class="col-md-8">
+            <input type="hidden" name="_method" value="put">
             <div th:if="${error}" class="alert alert-danger mt-3" th:text="${error}"></div>
             <div th:if="${success}" class="alert alert-success mt-3" th:text="${success}"></div>
             <div class="mb-3">

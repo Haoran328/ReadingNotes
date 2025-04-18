@@ -36,6 +36,15 @@
             </div>
             <button type="submit" class="btn btn-primary">Save</button>
         </form>
+        <script th:if="${local}">
+            window.addEventListener('load', function () {
+                const date = new Date();
+                const offset = date.getTimezoneOffset();
+                document.querySelector('input[type="date"]').value = 
+                    new Date(date.getTime() - (offset * 60 * 1000))
+                        .toISOString().split('T')[0];
+            })
+        </script>
     </main>
 </body>
 </html>
