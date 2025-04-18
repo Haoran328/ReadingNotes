@@ -1,6 +1,5 @@
 package cn.edu.xjtlu.readingnotes.config;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,15 +20,12 @@ import cn.edu.xjtlu.readingnotes.util.CustomAuthenticationProvider;
 @EnableMethodSecurity
 public class SecurityConfig {
 
-    @Autowired
-    private CustomAuthenticationProvider provider;
-
     @Bean
     public AuthenticationManager authenticationManager(HttpSecurity http)
             throws Exception {
         AuthenticationManagerBuilder builder =
             http.getSharedObject(AuthenticationManagerBuilder.class);
-        builder.authenticationProvider(provider);
+        builder.authenticationProvider(new CustomAuthenticationProvider());
         return builder.build();
     }
 
@@ -44,7 +40,7 @@ public class SecurityConfig {
             .authorizeHttpRequests((requests) -> requests
                 .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
                 .requestMatchers("/admin/**").hasRole("ADMIN")
-                .requestMatchers("/api/user/register", "/login", "/register").permitAll()
+                .requestMatchers("/login", "/register", "/registered").permitAll()
                 .requestMatchers("/api/user/**").authenticated()
                 .requestMatchers("/log/**").authenticated()
                 .anyRequest().authenticated()
