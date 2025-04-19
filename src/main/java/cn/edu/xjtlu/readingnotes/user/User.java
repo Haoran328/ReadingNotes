@@ -8,10 +8,11 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Index;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "users")
+@Table(indexes = @Index(columnList = "username"))
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -38,6 +39,7 @@ public class User {
         this.username = username;
         this.password = password;
         this.email = email;
+        this.avatar = "";
     }
 
     public Long getId() {

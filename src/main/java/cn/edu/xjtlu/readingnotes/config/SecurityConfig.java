@@ -43,6 +43,7 @@ public class SecurityConfig {
                 .requestMatchers("/login", "/register", "/registered").permitAll()
                 .requestMatchers("/api/user/**").authenticated()
                 .requestMatchers("/log/**").authenticated()
+                .requestMatchers("/avatar/**").authenticated()
                 .anyRequest().authenticated()
             )
             .formLogin((form) -> form
