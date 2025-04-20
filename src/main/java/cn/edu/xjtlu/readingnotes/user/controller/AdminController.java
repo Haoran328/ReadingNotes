@@ -44,6 +44,14 @@ public class AdminController {
         return ResponseEntity.ok(userRepo.save(user));
     }
 
+    @PutMapping("/user/{id}/activate")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<?> activateUser(@PathVariable Long id) {
+        User user = userRepo.findById(id).orElseThrow();
+        user.setIsEnabled(true); 
+        return ResponseEntity.ok(userRepo.save(user));
+    }
+
     @DeleteMapping("/user/{id}")
     @PreAuthorize("hasRole('ADMIN')")
     public void deleteUser(@PathVariable Long id) {

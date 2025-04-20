@@ -7,6 +7,10 @@
         <div th:if="${param.registered}" class="alert alert-success mt-3">
             Registration successful! Please login.
         </div>
+        <div th:if="${param.unactivated}" class="alert alert-warning">
+            The account is not activated. Please check your email
+            <a th:href="@{/resend-verification?email=${param.email}}">Resend the activation email</a>
+        </div>
         <form th:action="@{/login}" method="post" class="col-md-6">
             <div class="mb-3">
                 <input type="text" class="form-control" name="username" 

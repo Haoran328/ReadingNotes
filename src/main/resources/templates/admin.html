@@ -8,40 +8,48 @@
         <div class="mb-5">
             <h3>User Management</h3>
             <table class="table">
+                
                 <thead>
                     <tr>
                         <th>Username</th>
                         <th>Role</th>
-                        <th>Status</th>
+                        <th>Activated</th>  
+                        <th>Lock Status</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr th:each="user : ${users}">
-                        <td th:text="${user.username}"></td>
-                        <td th:text="${user.role}"></td>
+                
+                <tr th:each="user : ${users}">
+                    <td th:text="${user.username}"></td>
+                    <td th:text="${user.role}"></td>
+                    <td>
+                        <span th:text="${user.enabled} ? 'Yes' : 'No'" 
+                              th:class="${user.enabled} ? 'text-success' : 'text-danger'"></span>
+                    </td>
+                    <td th:text="${user.nonLocked} ? 'Active' : 'Blocked'"></td>
+                    <td>
+                        <!-- Newly added activation button -->
+                        <a th:href="@{'/admin/user/' + ${user.id} + '/activate'}"
+                           class="btn btn-sm btn-info me-2" 
+                           th:if="${not user.enabled}">Activate</a>
                         
-                        <td th:text="${user.active} ? 'Active' : 'Blocked'"></td>
-                        <td>
-                            <span th:text="${user.active} ? 'Active' : 'Blocked'" 
-                                  th:class="${user.active} ? 'text-success' : 'text-danger'">
-                            </span>
-                        </td>
-                        <td>
-                            <a th:href="@{'/admin/user/' + ${user.id} + '/status?active=false'}"
-                               class="btn btn-sm btn-warning" th:if="${user.active}">Block</a>
-                            <a th:href="@{'/admin/user/' + ${user.id} + '/status?active=true'}"
-                               class="btn btn-sm btn-success" th:unless="${user.active}">Unblock</a>
-                            <form th:action="@{'/admin/user/' + ${user.id}}" method="post"
-                                  class="d-inline">
-                                <input type="hidden" name="_method" value="delete">
-                                <button type="submit" class="btn btn-sm btn-danger">
-                                    Delete
-                                </button>
-                            </form>
-                        </td>
-                    </tr>
-                </tbody>
+                        <!-- The original lock status button remains unchanged -->
+                        <a th:href="@{'/admin/user/' + ${user.id} + '/status?active=false'}"
+                           class="btn btn-sm btn-warning" 
+                           th:if="${user.nonLocked}">Block</a>
+                        <a th:href="@{'/admin/user/' + ${user.id} + '/status?active=true'}"
+                           class="btn btn-sm btn-success" 
+                           th:unless="${user.nonLocked}">Unblock</a>
+                        
+                        <form th:action="@{'/admin/user/' + ${user.id}}" method="post"
+                              class="d-inline">
+                            <input type="hidden" name="_method" value="delete">
+                            <button type="submit" class="btn btn-sm btn-danger ms-2">
+                                Delete
+                            </button>
+                        </form>
+                    </td>
+                </tr>
             </table>
         </div>
     </main>
