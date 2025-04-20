@@ -23,16 +23,18 @@ public class UserInfo implements UserDetails {
     private Collection<? extends GrantedAuthority> authorities;
     private boolean nonLocked;
     private boolean enabled;
+    private String avatar;
 
     public UserInfo(Long id, String username, String password,
             Collection<? extends GrantedAuthority> authorities,
-            boolean nonLocked, boolean enabled) {
+            boolean nonLocked, boolean enabled, String avatar) {
         this.id = id;
         this.username = username;
         this.password = password;
         this.authorities = authorities;
         this.nonLocked = nonLocked;
         this.enabled = enabled;
+        this.avatar = avatar;
     }
 
     public static UserInfo build(User user) {
@@ -45,7 +47,8 @@ public class UserInfo implements UserDetails {
             user.getPassword(),
             authorities,
             user.getIsNonLocked(),
-            user.getIsEnabled());
+            user.getIsEnabled(),
+            user.getAvatar());
     }
 
     @Override
@@ -73,5 +76,13 @@ public class UserInfo implements UserDetails {
 
     public boolean isEnabled() {
         return enabled;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
     }
 }
