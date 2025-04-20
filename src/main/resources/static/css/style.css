@@ -44,3 +44,19 @@ body::after {
 .card:hover {
     transform: translateY(-2px);
 }
+
+
+.navbar-avatar {
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+}
+
+.navbar-avatar:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+}
+
+.navbar-avatar img {
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}

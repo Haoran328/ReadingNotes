@@ -86,32 +86,54 @@ c:\Users\Mahr.LAPTOP-0SB35923\Desktop\ReadingNotes/
 │   ├── main/
 │   │   ├── java/cn/edu/xjtlu/readingnotes/
 │   │   │   ├── config/                # Spring configuration classes
-│   │   │   ├── controller/           # MVC controllers
-│   │   │   │   └── ReadingLogController.java
-│   │   │   ├── model/                # Data entities
-│   │   │   │   └── ReadingLog.java
-│   │   │   ├── repository/           # Data access layer
-│   │   │   ├── service/              # Business logic layer
+│   │   │   │   ├── EmailConfig.java
+│   │   │   │   └── ThymeleafConfig.java
+│   │   │   ├── controller/            # MVC controllers
+│   │   │   │   ├── readinglog/
+│   │   │   │   │   └── ReadingLogController.java
+│   │   │   │   └── user/
+│   │   │   │       ├── AdminController.java
+│   │   │   │       └── UserViewController.java
+│   │   │   ├── model/                 # Data entities
+│   │   │   │   └── entity/
+│   │   │   │       └── ReadingLog.java
+│   │   │   ├── repository/            # Data access layer
+│   │   │   │   ├── readinglog/
+│   │   │   │   │   ├── ReadingLogRepo.java
+│   │   │   │   │   └── ReadingLog_.java
+│   │   │   │   └── user/
+│   │   │   │       └── UserRepo.java
+│   │   │   ├── service/               # Business logic layer
+│   │   │   │   ├── readinglog/
+│   │   │   │   │   ├── ReadingLogService.java
+│   │   │   │   │   └── ReadingLogSpecs.java
+│   │   │   │   └── user/
+│   │   │   │       └── UserInfoService.java
+│   │   │   ├── storage/               # File storage handling
+│   │   │   │   └── FileSystemStorageService.java
+│   │   │   ├── util/                  # Utilities and enums
+│   │   │   │   └── Role.java
 │   │   │   └── ReadingnotesApplication.java # Main class
 │   │   └── resources/
-│   │       ├── static/               # Static resources
+│   │       ├── static/                # Static resources
 │   │       │   ├── css/
-│   │       │   │   └── style.css     # Global styles
-│   │       ├── templates/            # Thymeleaf templates
-│   │       │   ├── fragments/        # Layout components
+│   │       │   │   └── style.css
+│   │       ├── templates/             # Thymeleaf templates
+│   │       │   ├── fragments/
 │   │       │   │   └── layout.html
-│   │       │   ├── log-edit.html     # Note editor
-│   │       │   ├── logs.html         # Notes list
-│   │       │   └── admin.html        # Admin panel
+│   │       │   ├── log-edit.html
+│   │       │   ├── logs.html
+│   │       │   ├── admin.html
+│   │       │   └── profile.html
 │   │       └── application.properties # Application config
 │   └── test/
 │       └── java/cn/edu/xjtlu/readingnotes/
-│           ├── AcceptanceTestBase.java    # Test base class
-│           ├── UserJourneyTest.java       # End-to-end tests
-│           ├── ApiContractTest.java      # API contract tests
-│           └── ReadingLogTest.java    # Unit tests
-├── pom.xml                           # Maven config
-└── README.md                         # Project documentation
+│           ├── AcceptanceTestBase.java
+│           ├── UserJourneyTest.java
+│           ├── ApiContractTest.java
+│           └── ReadingLogTest.java
+├── pom.xml
+└── README.md
 ```
 
 ## 6. Testing
